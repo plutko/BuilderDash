@@ -1,0 +1,37 @@
+Builder Dash
+
+Funkcjonalnosci:
+
+Ruch: L P G D
+Restart planszy
+Wejscie na plansze
+Wyjscie z planszy (pojawia sie po uzyskaniu limitu punktow)
+przesuniecie kamienia
+Putska nic nie blokuje
+Murki blokuja gracza, kamienie, diamenty i motyle
+Ziemia blokuje kamienie, diamenty, motyle
+Gracz zjada ziemie, diamenty
+Kamien zjada gracza, ale tylko gdy spadnie z gory co najmniej o jedno pole, powoduje Wybuch
+kamien i Diamnet zsuwaja sie z okraglych obektow czyli kamieni, diamentow i murkow
+Motyl zjada gracza
+Motyl porusza sie zawsze w lewo, po krawedziach
+
+Licznik punktow
+Licznik zyc ?
+Licznik czasu
+Levele (wczytywane z plikow)
+
+Plansza powitalna, plansza konca gry
+Mozliwosc wyboru levelu
+
+
+Animacje
+Grafiki
+
+Sterowanie klawiatura lub padem, ew. mysz w menu
+dzwieki
+muzyka
+
+Rozmiar planszy
+
+Format - raczeh tekstowy
