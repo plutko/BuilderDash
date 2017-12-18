@@ -1,8 +1,8 @@
-#include <iostream>
-#include <SDL.h>
-using namespace std;
 
-//Screen dimension constants
+#include <SDL.h>
+#include <stdio.h>
+
+	//Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
@@ -16,13 +16,13 @@ bool loadMedia();
 void close();
 
 //The window we'll be rendering to
-SDL_Window* gWindow = nullptr;
+SDL_Window* gWindow = NULL;
 
 //The surface contained by the window
-SDL_Surface* gScreenSurface = nullptr;
+SDL_Surface* gScreenSurface = NULL;
 
 //The image we will load and show on the screen
-SDL_Surface* gXOut = nullptr;
+SDL_Surface* gXOut = NULL;
 
 bool init()
 {
@@ -60,10 +60,10 @@ bool loadMedia()
 	bool success = true;
 
 	//Load splash image
-	gXOut = SDL_LoadBMP("../Resources/Szkic.bmp");
+	gXOut = SDL_LoadBMP("../Resources/szkic.bmp");
 	if (gXOut == NULL)
 	{
-		printf("Unable to load image %s! SDL Error: %s\n", "02_getting_an_image_on_the_screen/hello_world.bmp", SDL_GetError());
+		printf("Unable to load image %s! SDL Error: %s\n", "03_event_driven_programming/x.bmp", SDL_GetError());
 		success = false;
 	}
 
@@ -84,7 +84,7 @@ void close()
 	SDL_Quit();
 }
 
-int main(int argc, char * argv[])
+int main(int argc, char* args[])
 {
 	//Start up SDL and create window
 	if (!init())
@@ -93,27 +93,38 @@ int main(int argc, char * argv[])
 	}
 	else
 	{
-		bool quit = false;
-
-		SDL_Event e;
-		//main loop
-		while (!quit)
+		//Load media
+		if (!loadMedia())
 		{
-			while (SDL_PollEvent(&e) != 0)	
+			printf("Failed to load media!\n");
+		}
+		else
+		{
+			//Main loop flag
+			bool quit = false;
+
+			//Event handler
+			SDL_Event e;
+
+			//While application is running
+			while (!quit)
 			{
-				//user request quit
-				if (e.type == SDL_QUIT)
+				//Handle events on queue
+				while (SDL_PollEvent(&e) != 0)
 				{
-					quit = true;
+					//User requests quit
+					if (e.type == SDL_QUIT)
+					{
+						quit = true;
+					}
 				}
+
+				//Apply the image
+				SDL_BlitSurface(gXOut, NULL, gScreenSurface, NULL);
+
+				//Update the surface
+				SDL_UpdateWindowSurface(gWindow);
 			}
-
-			//Apply the image
-			SDL_BlitSurface(gXOut, NULL, gScreenSurface, NULL);
-
-			//Update the surface
-			SDL_UpdateWindowSurface(gWindow);
-
 		}
 	}
 
