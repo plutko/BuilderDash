@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include<SDL_image.h>
 #include <iostream>
 
 class Game
@@ -18,7 +19,7 @@ public:
 	bool running();
 	
 private:
-	int counter = 0; // test counter
+	int cnt = 0; // test counter
 	bool isRunning;
 	SDL_Window *window;
 	SDL_Renderer * renderer;

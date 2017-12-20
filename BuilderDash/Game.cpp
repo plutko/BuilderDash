@@ -1,4 +1,9 @@
 #include "Game.h"
+#include "TextureManager.h"
+#include "GameObject.h"
+
+GameObject * player;
+GameObject * player2;
 
 Game::Game()
 {}
@@ -28,7 +33,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);	
 			std::cout << "Renderer created" << std::endl;
 		}
 
@@ -36,8 +41,11 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 	else
 	{
-		isRunning = false;
+		isRunning = false; 
 	}
+
+	player = new GameObject("../Resources/player.png", renderer, 0 , 0 );
+	player2 = new GameObject("../Resources/player.png", renderer, 128, 0);
 }
 
 void Game::handleEvents()
@@ -57,15 +65,17 @@ void Game::handleEvents()
 
 void Game::update()
 {
-	// test counter to see if update works
-	counter++;
-	std::cout << counter << std::endl;
+	player->update();
+	player2->update();
+
 }
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	// here add stuff to render
+	
+	player->render();
+	player2->render();
 	SDL_RenderPresent(renderer);
 }
 
