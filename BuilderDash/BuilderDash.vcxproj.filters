@@ -27,12 +27,21 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TexturePath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Resources\Szkic.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\Resources\Player.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\Ground.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Resources\Wall.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -44,6 +53,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TexturePath.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
