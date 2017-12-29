@@ -82,7 +82,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false; 
 	}
 
-	player = new Player("../Resources/player.png", renderer, 0 , 0 );
+	player = new Player("../Resources/player.png", renderer, 32 , 32);
 	player2 = new GameObject("../Resources/player.png", renderer, 128, 0);
 
 	for (int i = 0; i < GAMESIZE_Y; i++)
