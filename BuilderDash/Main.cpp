@@ -7,6 +7,8 @@ Game * game = nullptr;
 int main(int argc, char* args[])
 {
 	const int FPS = 60; // Target FPS
+	const int UPS = 10; // Updates per second (game updates less often than is drawned)
+	const int UpdateDelay = 1000 / UPS; // maximum, update time, circa 100ms
 	const int frameDelay = 1000 / FPS; // maximum frame time, circa 16ms
 
 	Uint32 frameStart;

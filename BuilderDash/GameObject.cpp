@@ -17,6 +17,36 @@ GameObject::GameObject(int ID, SDL_Renderer * ren, int x, int y)
 	objTexture = TextureManager::LoadTexture(texturePath::getTexturePath(ID), ren);
 	xpos = x;
 	ypos = y;
+
+	switch (ID)
+	{
+	case 0: // Hole
+
+		break;
+	case 1: // Wall
+
+		break;
+	case 2: // Ground
+
+		break;
+	case 3: // Diamond
+		canMove = true;
+		canFall = true;
+		canExpload = true;
+		break;
+	case 4: // Boulder
+		canBePushed = true;
+		canMove = true;
+		canFall = true;
+		canExpload = true;
+		break;
+	case 5: // BrickWall
+
+		break;
+	default:
+		break;
+	}
+
 }
 
 GameObject::~GameObject()
@@ -40,4 +70,9 @@ void GameObject::update()
 void GameObject::render()
 {
 	SDL_RenderCopy(renderer, objTexture, &scrRect, &destRect);
+}
+
+int GameObject::getID()
+{
+	return ID;
 }
