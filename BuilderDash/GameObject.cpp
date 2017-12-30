@@ -46,7 +46,6 @@ GameObject::GameObject(int ID, SDL_Renderer * ren, int x, int y)
 	default:
 		break;
 	}
-
 }
 
 GameObject::~GameObject()
@@ -55,7 +54,6 @@ GameObject::~GameObject()
 
 void GameObject::update()
 {
-	//xpos++;
 	scrRect.h = 32;
 	scrRect.w = 32;
 	scrRect.x = 0;

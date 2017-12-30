@@ -1,6 +1,5 @@
 #include "Player.h"
 #include "TextureManager.h"
-#include "TexturePath.h"
 
 Player::Player(const char * texturesheet, SDL_Renderer * ren, int x, int y)
 {
@@ -14,10 +13,13 @@ Player::Player(const char * texturesheet, SDL_Renderer * ren, int x, int y)
 Player::~Player()
 {}
 
+int Player::MoveX = 0;
+int Player::MoveY = 0;
 
 void Player::update()
 {
-	xpos++;
+	xpos = xpos + Player::MoveX;
+	ypos = ypos + Player::MoveY;
 	scrRect.h = 32;
 	scrRect.w = 32;
 	scrRect.x = 0;
@@ -27,6 +29,8 @@ void Player::update()
 	destRect.y = ypos;
 	destRect.w = scrRect.w * 1;
 	destRect.h = scrRect.h * 1;
+	Player::MoveX = 0;
+	Player::MoveY = 0;
 }
 
 void Player::render()

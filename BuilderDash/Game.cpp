@@ -71,7 +71,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);	
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 			std::cout << "Renderer created" << std::endl;
 		}
 
@@ -79,11 +79,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 	else
 	{
-		isRunning = false; 
+		isRunning = false;
 	}
 
-	player = new Player("../Resources/player.png", renderer, 32 , 32);
-	player2 = new GameObject("../Resources/player.png", renderer, 128, 0);
+	player = new Player("../Resources/player.png", renderer, 32, 32);
 
 	for (int i = 0; i < GAMESIZE_Y; i++)
 	{
@@ -103,9 +102,23 @@ void Game::handleEvents()
 	case SDL_QUIT:
 		isRunning = false;
 		break;
-
-	default:
-		break;
+	case SDL_KEYDOWN:
+		switch (event.key.keysym.sym) {
+		case SDLK_LEFT:
+			Player::MoveX = -32;
+			break;
+		case SDLK_RIGHT:
+			Player::MoveX = 32;
+			break;
+		case SDLK_UP:
+			Player::MoveY = -32;
+			break;
+		case SDLK_DOWN:
+			Player::MoveY = 32;
+			break;
+		default:
+			break;
+		}
 	}
 }
 
@@ -119,7 +132,6 @@ void Game::update()
 		}
 	}
 	player->update();
-	player2->update();
 }
 
 void Game::render()
@@ -134,7 +146,6 @@ void Game::render()
 	}
 
 	player->render();
-	player2->render();
 	SDL_RenderPresent(renderer);
 }
 

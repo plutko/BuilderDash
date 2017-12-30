@@ -10,6 +10,9 @@ public:
 	void update();
 	void render();
 
+	static int MoveX;
+	static int MoveY;
+
 private:
 	int xpos;
 	int ypos;
