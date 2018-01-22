@@ -1,9 +1,11 @@
+#pragma once
 #include "Game.h"
 #include "TextureManager.h"
 #include "GameObject.h"
 #include "Player.h"
+#include "Board.h"
 
-int level_01[23][40] =
+int level_01[23][40] = // level nr 1
 {
 	{ 0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,	0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,	0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,	0	,0	,0	,0	,0	,0	,0	,0	,0	,0 },
 	{ 1	,1	,1	,1	,1	,1	,1	,1	,1	,1	,	1	,1	,1	,1	,1	,1	,1	,1	,1	,1	,	1	,1	,1	,1	,1	,1	,1	,1	,1	,1	,	1	,1	,1	,1	,1	,1	,1	,1	,1	,1 },
@@ -35,22 +37,27 @@ int level_01[23][40] =
 };
 
 Player * player;
-GameObject * player2;
+//GameObject * player2;
 
-const int GAMESIZE_X = 40; //40
-const int GAMESIZE_Y = 23; //23
+const int GAMESIZE_X = 40;
+const int GAMESIZE_Y = 23;
 const int GRIDSIZE = 32;
 
 GameObject * levelTable[GAMESIZE_Y][GAMESIZE_X];
+Board * level1;
 
 Game::Game()
 {}
 
 Game::~Game()
-{}
+{
+	delete level1;
+	delete player;
+}
 
 void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
 {
+	level1 = new Board;
 	int flags = 0;
 
 	if (fullscreen == true)
@@ -82,13 +89,35 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
-	player = new Player("../Resources/player.png", renderer, 32, 32);
+	player = new Player(level1, "../Resources/player.png", renderer, 3 * GRIDSIZE, 3 * GRIDSIZE);
 
 	for (int i = 0; i < GAMESIZE_Y; i++)
 	{
 		for (int j = 0; j < GAMESIZE_X; j++)
 		{
-			levelTable[i][j] = new GameObject(level_01[i][j], renderer, j * GRIDSIZE, i * GRIDSIZE);
+			switch (level_01[i][j])
+			{
+			case 0: // Hole 
+				level1->Table[i][j] = new Hole(level1, level_01[i][j], renderer, j * GRIDSIZE, i * GRIDSIZE);
+				break;
+			case 1: // Wall
+				level1->Table[i][j] = new Wall(level1, level_01[i][j], renderer, j * GRIDSIZE, i * GRIDSIZE);
+				break;
+			case 2: // Ground
+				level1->Table[i][j] = new Ground(level1, level_01[i][j], renderer, j * GRIDSIZE, i * GRIDSIZE);
+				break;
+			case 3: // Diamond
+				level1->Table[i][j] = new Diamond(level1, level_01[i][j], renderer, j * GRIDSIZE, i * GRIDSIZE);
+				break;
+			case 4: // Boulder
+				level1->Table[i][j] = new Boulder(level1,level_01[i][j], renderer, j * GRIDSIZE, i * GRIDSIZE);
+				break;
+			case 5: // BrickWall
+				level1->Table[i][j] = new BrickWall(level1, level_01[i][j], renderer, j * GRIDSIZE, i * GRIDSIZE);
+				break;
+			default:
+				break;
+			}
 		}
 	}
 }
@@ -105,16 +134,16 @@ void Game::handleEvents()
 	case SDL_KEYDOWN:
 		switch (event.key.keysym.sym) {
 		case SDLK_LEFT:
-			Player::MoveX = -32;
+			Player::MoveX = -GRIDSIZE;
 			break;
 		case SDLK_RIGHT:
-			Player::MoveX = 32;
+			Player::MoveX = GRIDSIZE;
 			break;
 		case SDLK_UP:
-			Player::MoveY = -32;
+			Player::MoveY = -GRIDSIZE;
 			break;
 		case SDLK_DOWN:
-			Player::MoveY = 32;
+			Player::MoveY = GRIDSIZE;
 			break;
 		default:
 			break;
@@ -128,7 +157,7 @@ void Game::update()
 	{
 		for (int j = 0; j < GAMESIZE_X; j++)
 		{
-			levelTable[i][j]->update();
+			level1->Table[i][j]->update();
 		}
 	}
 	player->update();
@@ -141,7 +170,7 @@ void Game::render()
 	{
 		for (int j = 0; j < GAMESIZE_X; j++)
 		{
-			levelTable[i][j]->render();
+			level1->Table[i][j]->render();
 		}
 	}
 

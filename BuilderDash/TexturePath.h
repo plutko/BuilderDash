@@ -1,3 +1,5 @@
+#pragma once
+
 class texturePath
 {
 	static const char * texPathArray[6];

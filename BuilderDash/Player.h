@@ -1,10 +1,13 @@
 #pragma once
 #include "Game.h"
+#include "TextureManager.h"
+#include "Board.h"
 
 class Player
 {
 public:
-	Player(const char * texturesheet, SDL_Renderer * ren, int x, int y);
+	Board * level;
+	Player(Board * thislevel, const char * texturesheet, SDL_Renderer * ren, int x, int y);
 	~Player();
 
 	void update();
